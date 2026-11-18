@@ -1,0 +1,49 @@
+---
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import { site } from '../data/content';
+const origin = Astro.site ? Astro.site.origin : '';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{site.title}</title>
+    <meta name="description" content={site.description} />
+    <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0E1014" media="(prefers-color-scheme: dark)" />
+    {origin && <link rel="canonical" href={origin + '/'} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={site.title} />
+    <meta property="og:description" content={site.description} />
+    <meta property="og:image" content={`${origin}/og-image.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      try { const s = localStorage.getItem('theme'); if (s === 'dark' || (!s && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); } catch {}
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="sr-only rounded-lg bg-accent px-4 py-2 font-semibold text-on-accent focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60]">Skip to content</a>
+    <slot />
+    <script is:inline>
+      const $ = (id) => document.getElementById(id);
+      $('theme-toggle')?.addEventListener('click', () => {
+        const dark = document.documentElement.classList.toggle('dark');
+        try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch {}
+      });
+      $('copy-letter')?.addEventListener('click', async (e) => {
+        const b = e.currentTarget, old = b.textContent;
+        try { await navigator.clipboard.writeText(b.dataset.text); b.textContent = b.dataset.done; setTimeout(() => (b.textContent = old), 2000); } catch {}
+      });
+      const btn = $('menu-toggle'), menu = $('mobile-menu');
+      const setMenu = (open) => { menu.hidden = !open; btn.setAttribute('aria-expanded', String(open)); };
+      btn?.addEventListener('click', () => setMenu(menu.hidden));
+      menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu && !menu.hidden) { setMenu(false); btn.focus(); } });
+    </script>
+  </body>
+</html>

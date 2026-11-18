@@ -1,0 +1,14 @@
+---
+import { cta, site } from '../data/content';
+---
+<section id="contact" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-16">
+  <div class="card p-8 sm:p-12">
+    <h2 class="max-w-[24ch] font-display text-4xl font-bold tracking-tight sm:text-5xl">{cta.heading}</h2>
+    <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-muted">{cta.body}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={`mailto:${site.email}`} class="btn btn-primary">{cta.button}</a>
+      <a href={site.whatsapp} class="btn btn-ghost">WhatsApp</a>
+      <a href={site.phoneHref} class="btn btn-ghost">{site.phone}</a>
+    </div>
+  </div>
+</section>

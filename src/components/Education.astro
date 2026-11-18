@@ -1,0 +1,33 @@
+---
+import { education as e } from '../data/content';
+---
+<section id="education" class="mx-auto grid max-w-6xl scroll-mt-24 gap-10 px-5 py-16 lg:grid-cols-[1.4fr_1fr]">
+  <div>
+    <p class="font-mono text-sm text-accent">{e.eyebrow}</p>
+    <h2 class="mt-2 font-display text-4xl font-bold tracking-tight sm:text-5xl">{e.heading}</h2>
+    <ol class="mt-8 space-y-6 border-l-2 border-ink pl-6">
+      {e.items.map((it) => (
+        <li class="relative">
+          <span class="absolute -left-[33px] top-1.5 h-3 w-3 rounded-full border-2 border-ink bg-accent" aria-hidden="true"></span>
+          <p class="font-mono text-sm text-muted">{it.when}</p>
+          <h3 class="mt-1 font-display text-xl font-bold">{it.title}</h3>
+          <p class="font-medium text-accent">{it.where}</p>
+          <p class="mt-2 max-w-[60ch] leading-relaxed text-muted">{it.body}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="card mt-8 inline-block !bg-sun px-4 py-2 font-medium text-[#14161A]">{e.extra}</p>
+  </div>
+  <div>
+    <p class="font-mono text-sm text-accent">{e.languagesEyebrow}</p>
+    <h2 class="mt-2 font-display text-3xl font-bold tracking-tight">{e.languagesHeading}</h2>
+    <ul class="mt-6 space-y-4">
+      {e.languages.map((l) => (
+        <li class="card flex items-center justify-between gap-3 p-4">
+          <div><p class="font-display text-lg font-bold">{l.name}</p><p class="text-sm text-muted">{l.note}</p></div>
+          <span class="rounded-md border-2 border-ink px-2 py-1 font-mono text-xs">{l.level}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

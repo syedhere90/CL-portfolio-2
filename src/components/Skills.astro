@@ -1,0 +1,19 @@
+---
+import { skills } from '../data/content';
+---
+<section id="skills" class="mx-auto grid max-w-6xl scroll-mt-24 gap-10 px-5 py-16 lg:grid-cols-[1fr_1fr] lg:items-center">
+  <div>
+    <p class="font-mono text-sm text-accent">{skills.eyebrow}</p>
+    <h2 class="mt-2 max-w-[18ch] font-display text-4xl font-bold tracking-tight sm:text-5xl">{skills.heading}</h2>
+    <p class="mt-5 max-w-[56ch] text-lg leading-relaxed text-muted">{skills.body}</p>
+    <div class="mt-7"><a href="#contact" class="btn btn-primary">{skills.buttons.discuss}</a></div>
+  </div>
+  <ul class="grid grid-cols-2 gap-4">
+    {skills.items.map((s, i) => (
+      <li class={`card p-5 ${i === 0 ? '!bg-accent text-on-accent' : ''}`}>
+        <p class="font-display text-xl font-bold">{s.name}</p>
+        <p class={`mt-1 text-sm ${i === 0 ? '' : 'text-muted'}`}>{s.note}</p>
+      </li>
+    ))}
+  </ul>
+</section>
